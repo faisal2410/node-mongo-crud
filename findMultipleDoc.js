@@ -4,20 +4,28 @@ const { client } = require("./dbConfig");
 // ========================
 const findMultipleDoc=async()=> {
     try {
-        const database = client.db("hospital");
-        const patients = database.collection("patients");
-        const query = { runtime: { $lt: 15 } };
-        const options = {
-            sort: { title: 1 },
-            projection: { _id: 0, title: 1, imdb: 1 },
-        };
-        const cursor = patients.find(query, options);
-        if ((await cursor.count()) === 0) {
+        const database = client.db("person");
+        const users = database.collection("users");
+        const query = {};
+        // const options = {
+        //     sort: { title: 1 },
+        //     projection: { _id: 0, title: 1, imdb: 1 },
+        // };
+        const cursor = users.find(query);
+        // const cursor = users.find(query, options);
+         if ((await cursor.count()) === 0) {       
             console.log("No documents found!");
+        } else {            
+            const users = await cursor.toArray();
+            // console.log("Output", users)
+            
+            users.forEach(user=>console.log(user))
         }
-        await cursor.forEach(console.dir);
-    } finally {
+    } catch (error) {
+        console.log(error)
+    }
+    finally {
         await client.close();
     }
 }
-findMultipleDoc().catch(console.dir);
+findMultipleDoc()

@@ -4,23 +4,27 @@ const { client } = require("./dbConfig");
 // =======================
 const insertMultipleDoc=async()=> {
     try {
-        const database = client.db("hospital");
-        const foods = database.collection("patients");
+        const database = client.db("person");
+        const users = database.collection("users");
         const docs = [
-            { name: "cake", healthy: false },
-            { name: "lettuce", healthy: true },
-            { name: "donut", healthy: false }
+            { name: "Talha", hobbies: ["Traveling","Sports"] },
+            { name: "Afnan", hobbies: ["Reading","Traveling"] },
+            { name: "Mashrufa", hobbies:["Sports","Traveling"] }
         ];
         
-        const options = { ordered: true };
-        const result = await foods.insertMany(docs, options);
+        // const options = { ordered: true };
+        // const result = await users.insertMany(docs, options);
+        const result = await users.insertMany(docs);
         console.log("Insert Multiple Documents output========>",result)
         console.log(`${result.insertedCount} documents were inserted`);
-    } finally {
+    } catch (error) {
+        console.log(error)
+    }    
+    finally {
         await client.close();
     }
 }
-insertMultipleDoc().catch(console.dir);
+insertMultipleDoc()
 
 /**
 Note for study:

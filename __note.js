@@ -1,6 +1,6 @@
 /**
 Mongodb CRUD Nodejs
-https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/
+https://www.mongodb.com/docs/drivers/node/current/usage-examples/
 
 JSON Formatter Validator:
 https://jsonformatter.curiousconcept.com/

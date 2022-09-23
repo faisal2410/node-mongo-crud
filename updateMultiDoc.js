@@ -4,20 +4,22 @@ const { client } = require("./dbConfig");
 // ========================
 const updateMultipleDoc=async()=> {
     try {
-        const database = client.db("hospital");
-        const patients = database.collection("patients");
-        const filter = { rated: "G" };
+        const database = client.db("person");
+        const users = database.collection("users");
+        const filter = {};
         const updateDoc = {
             $set: {
-                random_review: `After viewing I am ${100 * Math.random()
-                    }% more satisfied with life.`,
+                country: "Bangladesh"
             },
         };
-        const result = await patients.updateMany(filter, updateDoc);
+        const result = await users.updateMany(filter, updateDoc);
         console.log("Multiple Documents updated output",result)
         console.log(`Updated ${result.modifiedCount} documents`);
-    } finally {
+    } catch (error) {
+        console.log(error)
+    }    
+    finally {
         await client.close();
     }
 }
-updateMultipleDoc().catch(console.dir);
+updateMultipleDoc()

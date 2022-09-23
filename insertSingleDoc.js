@@ -4,20 +4,23 @@ const { client } = require("./dbConfig");
 // ====================
 const createDoc=async()=> {
     try {
-        const database = client.db("hospital");
-        const haiku = database.collection("patients");
+        const database = client.db("person");
+        const users = database.collection("users");
         const doc = {
-            title: "Record of a Shriveled Datum",
-            content: "No bytes, no problem. Just insert a document, in MongoDB",
+            name: "Faisal ahmed",
+            hobbies: ["Cooking","Sports"]
         }
-        const result = await haiku.insertOne(doc);
+        const result = await users.insertOne(doc);
         console.log("Insert doc output=========>",result)
         console.log(`A document was inserted with the _id: ${result.insertedId}`);
-    } finally {
+    } catch (error) {
+        console.log(error)
+    }
+    finally {
         await client.close();
     }
 }
-createDoc().catch(console.dir);
+createDoc()
 
 /**
 Note For study :

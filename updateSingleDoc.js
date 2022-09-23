@@ -4,22 +4,25 @@ const { client } = require("./dbConfig");
 // ============
 const updateDoc = async () => {
     try {
-        const database = client.db("hospital");
-        const patients = database.collection("patients");
-        const filter = { title: "Random Harvest" };
+        const database = client.db("person");
+        const users = database.collection("users");
+        const filter = { name: "Afnan" };
         const options = { upsert: true };
         const updateDoc = {
             $set: {
-                plot: `A harvest of random numbers, such as: ${Math.random()}`
+                hobbies: ["Writing","Coding"]
             },
         };
-        const result = await patients.updateOne(filter, updateDoc, options);
+        const result = await users.updateOne(filter, updateDoc, options);
         console.log("Update Document output=========>", result)       
         console.log(
             `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
         );
 
-    } finally {
+    } catch (error) {
+        console.log(error)
+    }    
+    finally {
         await client.close();
 
 
